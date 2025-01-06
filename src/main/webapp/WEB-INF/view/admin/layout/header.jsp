@@ -27,7 +27,14 @@
                         <li>
                             <hr class="dropdown-divider" />
                         </li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li>
+                            <form method="post" action="/logout">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                <button class="dropdown-item">Logout</button>
+                            </form></a>
+                        </li>
+
+
                     </ul>
                 </li>
             </ul>

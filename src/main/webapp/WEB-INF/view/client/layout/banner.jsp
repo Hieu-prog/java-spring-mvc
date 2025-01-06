@@ -8,11 +8,10 @@
                         <h4 class="mb-3 text-secondary">
                             <span style="font-size: 1.2em;">100%</span> Sản Phẩm Chính Hãng
                         </h4>
-
                         <h1 class="mb-5 display-3 text-primary">Hàng cao cấp<br /> Rẻ vô địch</h1>
                     </div>
                     <div class="col-md-12 col-lg-5">
-                        <div id="carouselId" class="carousel slide position-r   elative" data-bs-ride="carousel">
+                        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active rounded">
                                     <img src="/client/img/hero-img-1.png"
