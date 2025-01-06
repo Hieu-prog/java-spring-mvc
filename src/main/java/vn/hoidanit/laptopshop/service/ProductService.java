@@ -71,9 +71,9 @@ public class ProductService {
             if (productOptional.isPresent()) {
                 Product realProduct = productOptional.get();
 
-                // check san pham da tung duoc them vao gio hang truoc day hay chua
+                // check sản phẩm đã từng được thêm vào giỏ hàng trước đây chưa ?
                 CartDetail oldDetail = this.cartDetailRepository.findByCartAndProduct(cart, realProduct);
-
+                //
                 if (oldDetail == null) {
                     CartDetail cd = new CartDetail();
                     cd.setCart(cart);
@@ -82,18 +82,22 @@ public class ProductService {
                     cd.setQuantity(1);
                     this.cartDetailRepository.save(cd);
 
-                    // update cart sum
+                    // update cart (sum);
                     int s = cart.getSum() + 1;
-                    cart.setSum(cart.getSum() + 1);
+                    cart.setSum(s);
                     this.cartRepository.save(cart);
                     session.setAttribute("sum", s);
                 } else {
                     oldDetail.setQuantity(oldDetail.getQuantity() + 1);
                     this.cartDetailRepository.save(oldDetail);
                 }
+
             }
 
         }
     }
 
+    public Cart fetchByUser(User user) {
+        return this.cartRepository.findByUser(user);
+    }
 }
