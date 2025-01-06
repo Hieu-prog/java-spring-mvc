@@ -32,7 +32,7 @@
                                 <i class="fas fa-exchange-alt fa-3x text-white"></i>
                             </div>
                             <div class="featurs-content text-center">
-                                <h5>30 Day Return</h5>
+                                <h5 style="font-family: 'Open Sans', sans-serif;">30 Day Return</h5>
                                 <p class="mb-0">Đổi trả miễn phí</p>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                 <i class="fa fa-phone-alt fa-3x text-white"></i>
                             </div>
                             <div class="featurs-content text-center">
-                                <h5>24/7 Support</h5>
+                                <h5 style="font-family: 'Open Sans', sans-serif;">24/7 Support</h5>
                                 <p class="mb-0">Hỗ trợ nhiệt tình</p>
                             </div>
                         </div>

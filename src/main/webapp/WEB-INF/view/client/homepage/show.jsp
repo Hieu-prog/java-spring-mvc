@@ -86,7 +86,7 @@
                                         <li class="nav-item">
                                             <a class="d-flex m-2 py-2 bg-light rounded-pill active"
                                                 data-bs-toggle="pill" href="#tab-1">
-                                                <span class="text-dark" style="width: 130px;">All Products</span>
+                                                <span class="text-dark" style="width: 180px;">All Products</span>
                                             </a>
                                         </li>
                                     </ul>
