@@ -60,7 +60,7 @@ public class ProductController {
 
     @GetMapping("/admin/product/{id}")
     public String getProductDetailPage(Model model, @PathVariable long id) {
-        Product pr = this.productService.getProductByID(id).get();
+        Product pr = this.productService.fetchProductById(id).get();
         model.addAttribute("id", id);
         model.addAttribute("product", pr);
         return "admin/product/detail";
@@ -68,7 +68,7 @@ public class ProductController {
 
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProductPage(Model model, @PathVariable long id) {
-        Optional<Product> currentProduct = this.productService.getProductByID(id);
+        Optional<Product> currentProduct = this.productService.fetchProductById(id);
         model.addAttribute("newProduct", currentProduct.get());
         return "admin/product/update";
     }
@@ -81,7 +81,7 @@ public class ProductController {
             return "admin/product/create";
         }
 
-        Product currentProduct = this.productService.getProductByID(pr.getId()).get();
+        Product currentProduct = this.productService.fetchProductById(pr.getId()).get();
         String image = currentProduct.getImage(); // Giữ avatar cũ nếu không upload mới
         if (currentProduct != null) {
             if (!file.isEmpty()) {
@@ -112,7 +112,7 @@ public class ProductController {
 
     @PostMapping("/admin/product/delete")
     public String postDeleteProduct(Model model, @ModelAttribute("newProduct") Product pr) {
-        this.productService.deleteAProduct(pr.getId());
+        this.productService.deleteProduct(pr.getId());
         return "redirect:/admin/product";
     }
 }

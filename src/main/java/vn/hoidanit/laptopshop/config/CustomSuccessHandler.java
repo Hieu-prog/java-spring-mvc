@@ -55,7 +55,14 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         if (user != null) {
             session.setAttribute("fullName", user.getFullName());
             session.setAttribute("avatar", user.getAvatar());
+            session.setAttribute("id", user.getId());
+            session.setAttribute("email", user.getEmail());
+            int sum = 0;
+            if (user.getCart() != null)
+                sum = user.getCart().getSum();
+            session.setAttribute("sum", sum);
         }
+
     }
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
