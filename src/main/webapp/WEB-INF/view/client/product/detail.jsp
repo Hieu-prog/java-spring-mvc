@@ -69,11 +69,16 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <h4 class="fw-bold mb-3"> ${product.name}</h4>
+                                        <h4 class="fw-bold mb-3"
+                                            style="font-family: 'Open Sans', sans-serif; font-size: 25px; font-weight: bold;">
+                                            ${product.name}
+                                        </h4>
+
                                         <p class="mb-3">${product.factory}</p>
-                                        <p class="text-dark  fw-bold mb-3">
+                                        <p class="text-dark fw-bold mb-3" style="font-size: 20px;">
                                             <fmt:formatNumber type="number" value="${product.price}" /> đ
                                         </p>
+
                                         </h5>
                                         <div class="d-flex mb-4">
                                             <i class="fa fa-star text-secondary"></i>

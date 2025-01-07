@@ -23,6 +23,10 @@
                 ${eric}
             </h1>
             <h2>
+                <p class="text-dark  fw-bold mb-3">
+                    <fmt:formatNumber type="number" value="${product.price}" /> đ
+                </p>
+                </h5>
                 ${hoidanit}
             </h2>
             <button class="btn btn-warning">Submit</button>
