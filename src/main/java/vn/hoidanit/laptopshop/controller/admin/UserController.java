@@ -20,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.Valid;
+import vn.hoidanit.laptopshop.domain.Cart;
+import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order;
 import vn.hoidanit.laptopshop.domain.Role;
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.OrderService;
+import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
@@ -29,13 +34,17 @@ import vn.hoidanit.laptopshop.service.UserService;
 public class UserController {
     private final UserService userService;
     private final UploadService uploadService;
+    private final OrderService orderService;
+    private final ProductService productService;
     private final PasswordEncoder passwordEncoder;
 
     public UserController(UploadService uploadService, UserService userService,
-            PasswordEncoder passwordEncoder) {
+            PasswordEncoder passwordEncoder, OrderService orderService, ProductService productService) {
         this.userService = userService;
         this.uploadService = uploadService;
         this.passwordEncoder = passwordEncoder;
+        this.orderService = orderService;
+        this.productService = productService;
     }
 
     // @GetMapping("/")
@@ -63,7 +72,7 @@ public class UserController {
             // TODO: handle exception
         }
 
-        PageRequest pageable = PageRequest.of(page - 1, 1);
+        PageRequest pageable = PageRequest.of(page - 1, 5);
         Page<User> usersPage = this.userService.getAllUsers(pageable);
         List<User> users = usersPage.getContent();
         model.addAttribute("users1", users);
@@ -155,6 +164,18 @@ public class UserController {
 
     @PostMapping("/admin/user/delete")
     public String postDeleteUser(Model model, @ModelAttribute("newUser") User eric) {
+        eric = this.userService.getUserByID(eric.getId());
+
+        Cart cart = eric.getCart();
+        this.userService.deleteCart(cart);
+        // xóa Cart (1-1)
+
+        List<Order> orders = eric.getOrders();
+        for (Order order : orders) {
+            this.orderService.deleteOrderById(order.getId());
+        }
+        // xóa Order (N-1)
+
         this.userService.deleteAUser(eric.getId());
         return "redirect:/admin/user";
     }

@@ -6,9 +6,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import vn.hoidanit.laptopshop.domain.Cart;
+import vn.hoidanit.laptopshop.domain.CartDetail;
+import vn.hoidanit.laptopshop.domain.Order;
+import vn.hoidanit.laptopshop.domain.OrderDetail;
 import vn.hoidanit.laptopshop.domain.Role;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
+import vn.hoidanit.laptopshop.repository.CartDetailRepository;
+import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
 import vn.hoidanit.laptopshop.repository.RoleRepository;
@@ -20,13 +26,18 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
+    private final CartRepository cartRepository;
+    private final CartDetailRepository cartDetailRepository;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, OrderRepository orderRepository,
-            ProductRepository productRepository) {
+            ProductRepository productRepository, CartRepository cartRepository,
+            CartDetailRepository cartDetailRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.orderRepository = orderRepository;
         this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
+        this.cartDetailRepository = cartDetailRepository;
     }
 
     public Page<User> getAllUsers(Pageable page) {
@@ -82,4 +93,17 @@ public class UserService {
     public long countOrders() {
         return this.orderRepository.count();
     }
+
+    public void deleteCart(Cart cart) {
+        if (cart != null) {
+            List<CartDetail> cartDetails = cart.getCartDetails();
+            if (cartDetails != null) {
+                for (CartDetail cd : cartDetails) {
+                    this.cartDetailRepository.delete(cd);
+                }
+            }
+            this.cartRepository.delete(cart);
+        }
+    }
+
 }
