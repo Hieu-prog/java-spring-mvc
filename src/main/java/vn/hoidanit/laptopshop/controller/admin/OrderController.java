@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import vn.hoidanit.laptopshop.domain.Order;
+import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.service.OrderService;
 
 @Controller
@@ -42,7 +43,7 @@ public class OrderController {
             // TODO: handle exception
         }
 
-        PageRequest pageable = PageRequest.of(page - 1, 1);
+        PageRequest pageable = PageRequest.of(page - 1, 5);
         Page<Order> ordersPage = this.orderService.fetchAllOrders(pageable);
         List<Order> orders = ordersPage.getContent();
 
@@ -76,13 +77,13 @@ public class OrderController {
 
     @GetMapping("/admin/order/update/{id}")
     public String getUpdateOrderPage(Model model, @PathVariable long id) {
-        Optional<Order> currentOrder = this.orderService.fetchOrderById(id);
-        model.addAttribute("newOrder", currentOrder.get());
+        Order currentOrder = this.orderService.fetchOrderById(id).get();
+        model.addAttribute("updateOrder", currentOrder);
         return "admin/order/update";
     }
 
     @PostMapping("/admin/order/update")
-    public String handleUpdateOrder(@ModelAttribute("newOrder") Order order) {
+    public String updateOrder(@ModelAttribute("updateOrder") Order order) {
         this.orderService.updateOrder(order);
         return "redirect:/admin/order";
     }

@@ -26,6 +26,7 @@ import vn.hoidanit.laptopshop.service.OrderService;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class HomePageController {
@@ -112,4 +113,43 @@ public class HomePageController {
         return "client/homepage/order-history";
     }
 
+    @GetMapping("/account-management")
+    public String getAccountManagementPage(Model model, HttpServletRequest request) {
+        User currentUser = new User();// null
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        currentUser = this.userService.getUserByID(id);
+
+        model.addAttribute("newUser", currentUser);
+
+        return "client/homepage/account-management";
+    }
+
+    @PostMapping("/account-management")
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User hoidanit,
+            @RequestParam("hoidanitFile") MultipartFile file, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        User currentUser = this.userService.getUserByID(hoidanit.getId());
+        String avatar = currentUser.getAvatar(); // Giữ avatar cũ nếu không upload mới
+        if (currentUser != null) {
+            // currentUser.setEmail(hoidanit.getEmail());
+            if (file != null && !file.isEmpty()) {
+                avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+            }
+            currentUser.setEmail(hoidanit.getEmail());
+            currentUser.setFullName(hoidanit.getFullName());
+            currentUser.setAddress(hoidanit.getAddress());
+            currentUser.setPhone(hoidanit.getPhone());
+            currentUser.setAvatar(avatar);
+            session.setAttribute("avatar", avatar);
+            currentUser.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
+            this.userService.handleSaveUser(currentUser);
+        }
+        return "redirect:/updated";
+    }
+
+    @GetMapping("/updated")
+    public String getUpdatedPage() {
+        return "client/homepage/updated";
+    }
 }

@@ -57,6 +57,7 @@
                                                                 <fmt:formatNumber type="number"
                                                                     value="${product.price}" /> đ
                                                             </td>
+
                                                             <td>${product.factory}</td>
                                                             <td>
                                                                 <a href="/admin/product/${product.id}"

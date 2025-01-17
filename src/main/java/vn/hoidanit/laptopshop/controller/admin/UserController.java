@@ -147,6 +147,7 @@ public class UserController {
             currentUser.setAddress(hoidanit.getAddress());
             currentUser.setPhone(hoidanit.getPhone());
             currentUser.setAvatar(avatar);
+
             currentUser.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
             this.userService.handleSaveUser(currentUser);
         }

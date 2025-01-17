@@ -43,7 +43,8 @@
                                             </div>
                                         </li>
 
-                                        <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="/account-management">Quản lý tài khoản</a>
+                                        </li>
 
                                         <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
                                         <li>
@@ -69,4 +70,4 @@
                 </nav>
             </div>
         </div>
-        <!-- Navbar End -->
+        <!-- Navbar End -->q

@@ -44,7 +44,7 @@
                                         <div class="col-md-6 col-12 mx-auto">
                                             <h3>Update a user</h3>
                                             <hr />
-                                            <form:form method="post" action="/admin/user/create"
+                                            <form:form method="post" action="/admin/user/update"
                                                 modelAttribute="newUser" class="row" enctype="multipart/form-data">
                                                 <div class="mb-3" style="display: none;">
                                                     <label class="form-label">Id:</label>
@@ -108,7 +108,7 @@
                                                         id="avatarPreview" />
                                                 </div>
                                                 <div class="col-12 mb-5">
-                                                    <button type="submit" class="btn btn-primary">Create</button>
+                                                    <button type="submit" class="btn btn-primary">Update</button>
                                                 </div>
                                             </form:form>
 
