@@ -48,7 +48,7 @@ public class HomePageController {
     @GetMapping("/")
     public String getHomePage(Model model, HttpServletRequest request) {
         // List<Product> products = this.productService.fetchProducts();
-        Pageable pageable = PageRequest.of(0, 10);
+        Pageable pageable = PageRequest.of(0, 12);
         Page<Product> prs = this.productService.fetchProducts(pageable);
         List<Product> products = prs.getContent();
 
